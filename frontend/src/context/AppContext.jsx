@@ -55,7 +55,10 @@ export const AppContextProvider = ({ children }) => {
                 setChats(data.chats);
                 if(data.chats.length === 0){
                     await createNewChat();
+                } else {
+                    navigate(`/${data.chats[0]?._id}`)
                 }
+                
             }
         } catch (error) {
             toast.error(error.message);

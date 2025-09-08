@@ -92,7 +92,7 @@ const Sidebar = ({isMenuOpen, setIsMenuOpen}) => {
             }
         </div>
         {/* Community images */}
-        <div 
+        {/* <div 
         onClick={()=>{navigate('/community');
               setIsMenuOpen(false);
         }}
@@ -105,7 +105,7 @@ const Sidebar = ({isMenuOpen, setIsMenuOpen}) => {
             <div className='flex flex-col text-sm'>
                 <p>Community Images</p>
             </div>
-        </div>
+        </div> */}
 
         {/* Credit Purchase Option */}
         {/* <div 
