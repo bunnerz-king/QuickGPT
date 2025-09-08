@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 
 const ChatBox = () => {
     const containerRef = useRef(null);
-    const { selectedChat, theme, fetchUserChats } = useAppContext()
+    const { setFirstChat, chats, theme, fetchUserChats } = useAppContext()
 
     const {id} = useParams();
     const [messages, setMessages] = useState([]);
@@ -66,8 +66,14 @@ const ChatBox = () => {
     useEffect(() => {
         if(id){
             fetchChat();
-        }
+        } 
     }, [])
+
+    useEffect(()=>{
+       if(!id && chats.length){
+            setFirstChat()
+       }
+    }, [chats, id])
 
     return (
         <div className="flex-1 flex flex-col justify-between m-4 md:px-10 xl:mx-30 max-md:mt-14 2xl:pr-40">

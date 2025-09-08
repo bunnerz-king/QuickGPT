@@ -55,14 +55,17 @@ export const AppContextProvider = ({ children }) => {
                 setChats(data.chats);
                 if(data.chats.length === 0){
                     await createNewChat();
-                } else {
-                    navigate(`/${data.chats[0]?._id}`)
-                }
-                
+                } 
             }
         } catch (error) {
             toast.error(error.message);
         }
+    }
+
+    const setFirstChat = () => {
+        if(chats.length){
+            navigate(`/${chats[0]?._id}`)        
+        }   
     }
 
     useEffect(() => {
@@ -91,7 +94,7 @@ export const AppContextProvider = ({ children }) => {
         setTheme(theme)
         localStorage.setItem('theme', theme);
     }
-    const value = { navigate, user, setUser, chats, setChats, selectedChat, setSelectedChat, theme, toggleTheme, fetchUser, createNewChat, loadingUser, fetchUserChats, setUser }
+    const value = { navigate, user, setUser, chats, setChats, selectedChat, setSelectedChat, theme, toggleTheme, fetchUser, createNewChat, loadingUser, fetchUserChats, setUser, setFirstChat }
 
     return (
         <AppContext.Provider value={value}>
