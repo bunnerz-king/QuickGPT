@@ -42,7 +42,6 @@ const ChatBox = () => {
     }
 
     const fetchChat = async () => {
-        console.log(id);
         try{
             const {data} = await api.get(`/api/chat/${id}`)
             setMessages(data.chat.messages)
