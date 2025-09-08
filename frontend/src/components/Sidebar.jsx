@@ -144,7 +144,6 @@ const Sidebar = ({isMenuOpen, setIsMenuOpen}) => {
                     onClick={()=>toggleTheme(theme == 'dark' ? 'light' : 'dark')}
                     type="checkbox"
                     className="sr-only peer"
-                    checked={theme == 'dark'}
                     />
                     <div className="w-9 h-5 bg-gray-400 rounded-full peer-checked:bg-purple-600 transition-all">
 
