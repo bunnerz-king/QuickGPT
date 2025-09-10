@@ -94,7 +94,7 @@ export const AppContextProvider = ({ children }) => {
         setTheme(theme)
         localStorage.setItem('theme', theme);
     }
-    const value = { navigate, user, setUser, chats, setChats, selectedChat, setSelectedChat, theme, toggleTheme, fetchUser, createNewChat, loadingUser, fetchUserChats, setUser, setFirstChat }
+    const value = { navigate, user, setUser, chats, setChats, selectedChat, setSelectedChat, theme, toggleTheme, fetchUser, createNewChat, loadingUser, fetchUserChats, setFirstChat }
 
     return (
         <AppContext.Provider value={value}>

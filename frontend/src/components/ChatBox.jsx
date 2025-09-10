@@ -5,6 +5,7 @@ import Message from './Message';
 import api from '../api/api';
 import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
+import MessageLoading from './MessageLoading';
 
 const ChatBox = () => {
     const containerRef = useRef(null);
@@ -24,10 +25,10 @@ const ChatBox = () => {
             setLoading(true);
             const promptCopy = prompt;
             setPrompt('');
-            setMessages(prev => [...prev, {role: 'user', content: prompt, timestamp: Date.now(), isImage: false}]);
+            setMessages(prev => [...prev, {role: 'user', content: promptCopy, timestamp: Date.now(), isImage: false}]);
 
             const {data} = await api.post(`/api/message/${mode}`, {
-                chatId: id, prompt, isPublished}
+                chatId: id, prompt: promptCopy, isPublished}
             )
 
             if(data.success){
@@ -94,38 +95,28 @@ const ChatBox = () => {
 
                 {/* Loading Animation */}
                 {
-                    loading && <div className="loader flex items-center gap-1.5 mt-4">
-                        <div className="w-1.5 h-1.5 rounded-full bg-gray-500 dark:bg-white animate-bounce">
-
-                        </div>
-                        <div className="w-1.5 h-1.5 rounded-full bg-gray-500 dark:bg-white animate-bounce">
-
-                        </div>
-                        <div className="w-1.5 h-1.5 rounded-full bg-gray-500 dark:bg-white animate-bounce">
-
-                        </div>
-                    </div>
+                    loading && <MessageLoading/>
                 }
             </div>
 
-                {mode == 'image' && (
+                {/* {mode == 'image' && (
                     <label className="inline-flex items-center gap-2 mb-3 text-sm mx-auto">
                         <p className="text-xs">Publish Generated Image to Community</p>
                         <input type="checkbox" className="cursor-pointer" checked={isPublished}
                         onChange={(e)=>setIsPublished(e.target.checked)}
                         ></input>
                     </label>
-                )}
+                )} */}
 
             {/* Input box */}
             <form onSubmit={onSubmit} className="bg-gray-100/70 dark:bg-slate-950 border border-gray-200 dark:border-gray-400 rounded-full w-full p-3 pl-4 mx-auto flex gap-4 items-center">
                 <select onChange={(e)=>setMode(e.target.value)}
                 value={mode} className='text-sm pl-3 pr-2 outline-none'>
-                    <option className="dark:bg-purple-900" value="text">Text</option>
-                    {/* <option className="dark:bg-purple-900" value="image">Image</option> */}
+                    <option className="dark:bg-slate-900" value="text">Text</option>
+                    <option className="dark:bg-slate-900" value="image">Image</option>
 
                 </select>
-                <input value={prompt} onChange={(e)=>setPrompt(e.target.value)} type="text" placeholder="Ask me anything" className="flex-w w-full text-sm outline-none" required/>
+                <input value={prompt} onChange={(e)=>setPrompt(e.target.value)} type="text" placeholder={mode == 'image' ? "Describe an image to generate" : "Ask me anything"} className="flex-w w-full text-sm outline-none" required/>
                 <button disabled={loading}>
                     <img src={loading? assets.stop_icon : assets.send_icon} className="w-8 cursor-pointer" alt=""/>
                 </button>
